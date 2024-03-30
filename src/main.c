@@ -1,19 +1,18 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_error.h>
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include <stdio.h>
 #include <stdbool.h>
 
-const SDL_Color c();
-
 /*
  * initializes stuff in sdl.
  * fills the pointers to the window and renderer.
  * returns -1 in case of an error.
 */
-int init_sdl2(SDL_Window **win, SDL_Renderer **renderer) {
+int init_sdl(SDL_Window **win, SDL_Renderer **renderer) {
 
     // initialize sdl itself
     if (SDL_Init(SDL_INIT_VIDEO) == -1) return -1;
@@ -33,16 +32,60 @@ int init_sdl2(SDL_Window **win, SDL_Renderer **renderer) {
     return 0;
 }
 
-int main(int argc, char *argv[])
-{
-    SDL_Window* win;
-    SDL_Renderer* renderer;
-    init_sdl2(&win, &renderer);
+/*
+ * draw the stuff on the screen
+ * returns -1 in case of an error
+ */
+int draw_sdl(SDL_Renderer* renderer) {
+    if (SDL_SetRenderDrawColor(renderer, 100, 100, 100, 0xff) == -1)
+        return -1;
+
+    if (SDL_RenderClear(renderer) == -1) return -1;
+
+    SDL_RenderPresent(renderer);
+    return 0;
+}
+
+/*
+ * returns -1 in case of an error
+ */
+int gameloop(SDL_Window* win, SDL_Renderer* renderer) {
 
     // game loop
     bool running = true;
     
     while(running) {
-        SDL_RenderPresent(renderer);
+        SDL_Event e;
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT)
+                running = false;
+        }
+
+        if (draw_sdl(renderer) == -1) return -1;
     }
+
+    return 0;
+}
+
+int main(int argc, char *argv[])
+{
+    SDL_Window* win;
+    SDL_Renderer* renderer;
+    if (init_sdl(&win, &renderer) == -1) {
+        printf("error with sdl initialization: %s", SDL_GetError());
+        return -1;
+    }
+
+    // game loop
+    if (gameloop(win, renderer) == -1) {
+        printf("error with sdl loop: %s", SDL_GetError());
+        return -1;
+    }
+
+    // cleanup
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(win);
+    SDL_Quit();
+
+    return 0;
 }
