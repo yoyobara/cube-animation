@@ -35,24 +35,32 @@ int init_sdl(SDL_Window **win, SDL_Renderer **renderer) {
     return 0;
 }
 
-/*
- * draw the stuff on the screen
- * returns -1 in case of an error
- */
-int draw_sdl(SDL_Renderer* renderer) {
-    if (SDL_SetRenderDrawColor(renderer, 100, 100, 100, 0xff) == -1)
-        return -1;
+/* draws a cube on the screen */
+void draw_cube(SDL_Renderer* renderer, cube* c) {
+    SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff); // white
 
-    if (SDL_RenderClear(renderer) == -1) return -1;
-
-    SDL_RenderPresent(renderer);
-    return 0;
+    // draw vertices
+    for (int i = 0 ; i < 8 ; i++) {
+        int *point = c->vertices[i];
+        SDL_RenderDrawPoint(renderer, point[0], point[1]);
+    }
 }
 
 /*
- * returns -1 in case of an error
+ * draw the stuff on the screen
  */
-int gameloop(SDL_Window* win, SDL_Renderer* renderer) {
+void draw_sdl(SDL_Renderer* renderer, cube* c) {
+    SDL_SetRenderDrawColor(renderer, 100, 100, 100, 0xff);
+    SDL_RenderClear(renderer);
+
+    draw_cube(renderer, c);
+
+    SDL_RenderPresent(renderer);
+}
+
+/*
+ */
+void gameloop(SDL_Window* win, SDL_Renderer* renderer) {
 
     // game loop
     bool running = true;
@@ -66,10 +74,8 @@ int gameloop(SDL_Window* win, SDL_Renderer* renderer) {
                 running = false;
         }
 
-        if (draw_sdl(renderer) == -1) return -1;
+        draw_sdl(renderer, &c);
     }
-
-    return 0;
 }
 
 int main(int argc, char *argv[])
@@ -82,10 +88,7 @@ int main(int argc, char *argv[])
     }
 
     // game loop
-    if (gameloop(win, renderer) == -1) {
-        printf("error with sdl loop: %s", SDL_GetError());
-        return -1;
-    }
+    gameloop(win, renderer);
 
     // cleanup
     SDL_DestroyRenderer(renderer);
