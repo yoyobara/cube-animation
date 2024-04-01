@@ -41,10 +41,10 @@ void draw_cube(SDL_Renderer* renderer, cube* c) {
 
     // draw edges
     for (int i = 0 ; i < 12 ; i++) {
-        int *v1 = c->vertices[EDGES_INDEXES[i][0]];
-        int *v2 = c->vertices[EDGES_INDEXES[i][1]];
+        float *v1 = c->vertices[EDGES_INDEXES[i][0]];
+        float *v2 = c->vertices[EDGES_INDEXES[i][1]];
 
-        SDL_RenderDrawLine(renderer,
+        SDL_RenderDrawLineF(renderer,
                            v1[0] + c->offset[0],
                            v1[1] + c->offset[1],
                            v2[0] + c->offset[0],
@@ -55,8 +55,8 @@ void draw_cube(SDL_Renderer* renderer, cube* c) {
 
     // draw vertices
     for (int i = 0 ; i < 8 ; i++) {
-        int *vertex = c->vertices[i];
-        SDL_RenderDrawPoint(renderer, vertex[0] + c->offset[0], vertex[1] + c->offset[1]);
+        float *vertex = c->vertices[i];
+        SDL_RenderDrawPointF(renderer, vertex[0] + c->offset[0], vertex[1] + c->offset[1]);
     }
 
 }

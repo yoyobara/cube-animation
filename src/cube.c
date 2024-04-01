@@ -23,7 +23,7 @@ void cube_translate(cube* c, int x, int y) {
 }
 
 // scales a cube by a factor
-void cube_scale(cube* c, unsigned int factor) {
+void cube_scale(cube* c, float factor) {
     
     // multiply all coords by factor
     for (int i = 0 ; i < 24 ; i++) {
@@ -31,7 +31,7 @@ void cube_scale(cube* c, unsigned int factor) {
     }
 }
 
-cube cube_new(unsigned int size, int x_offset, int y_offset) {
+cube cube_new(float size_factor, int x_offset, int y_offset) {
 
     cube c;
 
@@ -46,7 +46,7 @@ cube cube_new(unsigned int size, int x_offset, int y_offset) {
                 index_counter++;
             }
     
-    cube_scale(&c, size);
+    cube_scale(&c, size_factor);
     cube_translate(&c, x_offset, y_offset);
 
     return c;
