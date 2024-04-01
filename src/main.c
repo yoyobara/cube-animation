@@ -42,7 +42,7 @@ void draw_cube(SDL_Renderer* renderer, cube* c) {
     // draw vertices
     for (int i = 0 ; i < 8 ; i++) {
         int *point = c->vertices[i];
-        SDL_RenderDrawPoint(renderer, point[0] + 400, point[1] + 400);
+        SDL_RenderDrawPoint(renderer, point[0] + c->offset[0], point[1] + c->offset[1]);
     }
 }
 
@@ -65,7 +65,7 @@ void gameloop(SDL_Window* win, SDL_Renderer* renderer) {
     // game loop
     bool running = true;
 
-    cube c = cube_new();
+    cube c = cube_new(100, 400, 400);
     
     while(running) {
         SDL_Event e;
