@@ -42,7 +42,7 @@ void draw_cube(SDL_Renderer* renderer, cube* c) {
     // draw vertices
     for (int i = 0 ; i < 8 ; i++) {
         int *point = c->vertices[i];
-        SDL_RenderDrawPoint(renderer, point[0], point[1]);
+        SDL_RenderDrawPoint(renderer, point[0] + 400, point[1] + 400);
     }
 }
 

@@ -12,6 +12,7 @@ cube cube_new() {
                 c.vertices[index_counter][0] = i;
                 c.vertices[index_counter][1] = j;
                 c.vertices[index_counter][2] = k;
+                index_counter++;
             }
 
     return c;
