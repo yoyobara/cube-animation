@@ -11,3 +11,6 @@ extern const int EDGES_INDEXES[12][2];
 
 // creates a new cube
 cube cube_new(unsigned int size, int x_offset, int y_offset);
+
+// set cube origin
+void cube_translate(cube* c, int x, int y);
