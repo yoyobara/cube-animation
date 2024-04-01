@@ -39,11 +39,26 @@ int init_sdl(SDL_Window **win, SDL_Renderer **renderer) {
 void draw_cube(SDL_Renderer* renderer, cube* c) {
     SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff); // white
 
+    // draw edges
+    for (int i = 0 ; i < 12 ; i++) {
+        int *v1 = c->vertices[EDGES_INDEXES[i][0]];
+        int *v2 = c->vertices[EDGES_INDEXES[i][1]];
+
+        SDL_RenderDrawLine(renderer,
+                           v1[0] + c->offset[0],
+                           v1[1] + c->offset[1],
+                           v2[0] + c->offset[0],
+                           v2[1] + c->offset[1]);
+    }
+
+    SDL_SetRenderDrawColor(renderer, 0xff, 0, 0, 0xff); // red
+
     // draw vertices
     for (int i = 0 ; i < 8 ; i++) {
-        int *point = c->vertices[i];
-        SDL_RenderDrawPoint(renderer, point[0] + c->offset[0], point[1] + c->offset[1]);
+        int *vertex = c->vertices[i];
+        SDL_RenderDrawPoint(renderer, vertex[0] + c->offset[0], vertex[1] + c->offset[1]);
     }
+
 }
 
 /*
