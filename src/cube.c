@@ -1,3 +1,4 @@
+#include <math.h>
 #include "cube.h"
 
 const int EDGES_INDEXES[12][2] = {
@@ -51,3 +52,8 @@ cube cube_new(float size_factor, int x_offset, int y_offset) {
 
     return c;
 }
+
+void cube_rotate(cube* c, float x_rotation, float y_rotation, float z_rotation) {
+    
+}
+
