@@ -37,6 +37,21 @@ void cube_scale(cube* c, float factor) {
     }
 }
 
+// checks if needs to wrap origin around the screen.
+void cube_wrap_offset_around_screen(cube* c, int screen_w, int screen_h) {
+    if (c->offset[0] < 0)
+        c->offset[0] += screen_w;
+
+    if (c->offset[0] > screen_w) 
+        c->offset[0] -= screen_w;
+
+    if (c->offset[1] < 0)
+        c->offset[1] += screen_h;
+
+    if (c->offset[1] > screen_h) 
+        c->offset[1] -= screen_h;
+}
+
 cube cube_new(float size_factor, int x_offset, int y_offset) {
 
     cube c;

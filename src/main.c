@@ -94,6 +94,7 @@ void gameloop(SDL_Window* win, SDL_Renderer* renderer) {
 
         cube_rotate(&c, &rotation);
         cube_translate_add(&c, 2, 4);
+        cube_wrap_offset_around_screen(&c, 800, 800);
     
         draw_sdl(renderer, &c);
 

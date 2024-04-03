@@ -22,3 +22,5 @@ void cube_translate_add(cube* c, int dx, int dy);
 
 // rotate the cube by a rotation matrix
 void cube_rotate(cube* c, rotation_matrix* rotation);
+
+void cube_wrap_offset_around_screen(cube* c, int screen_w, int screen_h);
