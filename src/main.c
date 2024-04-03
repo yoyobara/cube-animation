@@ -79,7 +79,7 @@ void gameloop(SDL_Window* win, SDL_Renderer* renderer) {
     bool running = true;
 
     rotation_matrix rotation = rotation_matrix_new(M_PI / 200, M_PI / 120, M_PI / 80);
-    cube c = cube_new(100, 400, 400);
+    cube c = cube_new(40, 400, 400);
 
     while(running) {
         // cap fps
