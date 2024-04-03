@@ -13,7 +13,7 @@
 #include "cube.h"
 #include "rotation.h"
 
-const int SCREEN_FPS = 30;
+const int SCREEN_FPS = 60;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 /*
@@ -87,7 +87,7 @@ void gameloop(SDL_Window* win, SDL_Renderer* renderer) {
     bool running = true;
 
     cube c = cube_new(100, 400, 400);
-    rotation_matrix rotation = rotation_matrix_new(0, 0, M_PI / 30);
+    rotation_matrix rotation = rotation_matrix_new(M_PI / 200, M_PI / 120, M_PI / 80);
 
     while(running) {
         // cap fps
