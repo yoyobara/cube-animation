@@ -1,6 +1,5 @@
-#include <math.h>
-#include <stdio.h>
 #include "cube.h"
+#include "rotation.h"
 
 const int EDGES_INDEXES[12][2] = {
     {0, 1},
@@ -55,19 +54,16 @@ cube cube_new(float size_factor, int x_offset, int y_offset) {
 }
 
 // vertex points to x,y,z array
-void rotate_vertex(float *vertex, float x_rotation, float y_rotation, float z_rotation) {
-    float cosZrotation = cos(z_rotation);
-    float sinZrotation = sin(z_rotation);
+// rotation matrix is a pointer to 3x3 rotation matrix to rotate the stuff with
+void rotate_vertex(float *vertex, rotation_matrix *rotation_matrix) {
 
-    float x = vertex[0], y = vertex[1];
-
-    vertex[0] = x * cosZrotation - y * sinZrotation;
-    vertex[1] = x * sinZrotation + y * cosZrotation;
+    float x = vertex[0], y = vertex[1], z = vertex[2];
 }
 
-void cube_rotate(cube* c, float x_rotation, float y_rotation, float z_rotation) {
+// rotation matrix is a pointer to 3x3 rotation matrix to rotate the stuff with
+void cube_rotate(cube* c, rotation_matrix *rotation_matrix) {
     for (int i = 0 ; i < 8 ; i++) {
-        rotate_vertex(c->vertices[i], x_rotation, y_rotation, z_rotation);
+        rotate_vertex(c->vertices[i], rotation_matrix);
     }
 }
 
