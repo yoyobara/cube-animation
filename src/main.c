@@ -4,11 +4,15 @@
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
 
+#include "SDL_timer.h"
 #include "cube.h"
 
+const int SCREEN_FPS = 60;
+const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 /*
  * initializes stuff in sdl.
@@ -83,6 +87,10 @@ void gameloop(SDL_Window* win, SDL_Renderer* renderer) {
     cube c = cube_new(100, 400, 400);
     
     while(running) {
+        // cap fps
+        uint32_t start_time = SDL_GetTicks();
+
+        // event loop
         SDL_Event e;
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT)
@@ -90,6 +98,13 @@ void gameloop(SDL_Window* win, SDL_Renderer* renderer) {
         }
 
         draw_sdl(renderer, &c);
+
+        uint32_t end_time = SDL_GetTicks();
+
+        // cap framerate
+        uint32_t delta = end_time - start_time;
+        if (delta < SCREEN_TICKS_PER_FRAME)
+            SDL_Delay(SCREEN_TICKS_PER_FRAME - delta);
     }
 }
 
