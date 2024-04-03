@@ -60,10 +60,9 @@ void rotate_vertex(float *vertex, float x_rotation, float y_rotation, float z_ro
     float sinZrotation = sin(z_rotation);
 
     float x = vertex[0], y = vertex[1];
-    printf("%f %f\n", x, y);
 
-    vertex[0] = x * cosZrotation + y * sinZrotation;
-    vertex[1] = - x * sinZrotation + y * cosZrotation;
+    vertex[0] = x * cosZrotation - y * sinZrotation;
+    vertex[1] = x * sinZrotation + y * cosZrotation;
 }
 
 void cube_rotate(cube* c, float x_rotation, float y_rotation, float z_rotation) {
