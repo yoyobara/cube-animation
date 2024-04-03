@@ -53,7 +53,18 @@ cube cube_new(float size_factor, int x_offset, int y_offset) {
     return c;
 }
 
+// vertex points to x,y,z array
+void rotate_vertex(float *vertex, float x_rotation, float y_rotation, float z_rotation) {
+    float cosZrotation = cos(z_rotation);
+    float sinZrotation = sin(z_rotation);
+
+    vertex[0] = vertex[0] * cosZrotation + vertex[1] * sinZrotation;
+    vertex[1] = vertex[0] * sinZrotation - vertex[1] * cosZrotation;
+}
+
 void cube_rotate(cube* c, float x_rotation, float y_rotation, float z_rotation) {
-    
+    for (int i = 0 ; i < 8 ; i++) {
+        rotate_vertex(c->vertices[i], x_rotation, y_rotation, z_rotation);
+    }
 }
 
