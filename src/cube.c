@@ -24,6 +24,10 @@ void cube_translate(cube* c, int x, int y) {
     c->offset[1] = y;
 }
 
+void cube_translate_add(cube* c, int dx, int dy) {
+    cube_translate(c, c->offset[0] + dx, c->offset[1] + dy);
+}
+
 // scales a cube by a factor
 void cube_scale(cube* c, float factor) {
     

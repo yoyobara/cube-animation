@@ -17,5 +17,8 @@ cube cube_new(float size_factor, int x_offset, int y_offset);
 // set cube origin
 void cube_translate(cube* c, int x, int y);
 
+// add to cube origin
+void cube_translate_add(cube* c, int dx, int dy);
+
 // rotate the cube by a rotation matrix
 void cube_rotate(cube* c, rotation_matrix* rotation);
