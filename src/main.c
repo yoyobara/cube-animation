@@ -16,6 +16,34 @@
 const int SCREEN_FPS = 60;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
+// Function to draw a line with wrapping around screen boundaries
+void drawWrappedLineF(SDL_Renderer *renderer, float x1, float y1, float x2, float y2, int screenWidth, int screenHeight) {
+    // Check if line goes outside the right boundary
+    if (x1 >= screenWidth) {
+        x1 = fmodf(x1, screenWidth);
+        x2 = fmodf(x2, screenWidth);
+    }
+    // Check if line goes outside the left boundary
+    else if (x2 < 0) {
+        x1 += screenWidth;
+        x2 += screenWidth;
+    }
+
+    // Check if line goes outside the bottom boundary
+    if (y1 >= screenHeight) {
+        y1 = fmodf(y1, screenHeight);
+        y2 = fmodf(y2, screenHeight);
+    }
+    // Check if line goes outside the top boundary
+    else if (y2 < 0) {
+        y1 += screenHeight;
+        y2 += screenHeight;
+    }
+
+    // Draw the adjusted line
+    SDL_RenderDrawLineF(renderer, x1, y1, x2, y2);
+}
+
 /*
  * initializes stuff in sdl.
  * fills the pointers to the window and renderer.
@@ -55,14 +83,6 @@ void draw_cube(SDL_Renderer* renderer, cube* c) {
                            v1[1] + c->offset[1],
                            v2[0] + c->offset[0],
                            v2[1] + c->offset[1]);
-    }
-
-    SDL_SetRenderDrawColor(renderer, 0xff, 0, 0, 0xff); // red
-
-    // draw vertices
-    for (int i = 0 ; i < 8 ; i++) {
-        float *vertex = c->vertices[i];
-        SDL_RenderDrawPointF(renderer, vertex[0] + c->offset[0], vertex[1] + c->offset[1]);
     }
 
 }
