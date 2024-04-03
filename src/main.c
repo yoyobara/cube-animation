@@ -4,6 +4,7 @@
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
+#include <math.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -11,7 +12,7 @@
 #include "SDL_timer.h"
 #include "cube.h"
 
-const int SCREEN_FPS = 60;
+const int SCREEN_FPS = 1;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 /*
@@ -96,6 +97,8 @@ void gameloop(SDL_Window* win, SDL_Renderer* renderer) {
             if (e.type == SDL_QUIT)
                 running = false;
         }
+
+        cube_rotate(&c, 0, 0, M_PI / 6);
 
         draw_sdl(renderer, &c);
 

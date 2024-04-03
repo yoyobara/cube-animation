@@ -58,8 +58,10 @@ void rotate_vertex(float *vertex, float x_rotation, float y_rotation, float z_ro
     float cosZrotation = cos(z_rotation);
     float sinZrotation = sin(z_rotation);
 
-    vertex[0] = vertex[0] * cosZrotation + vertex[1] * sinZrotation;
-    vertex[1] = vertex[0] * sinZrotation - vertex[1] * cosZrotation;
+    float x = vertex[0], y = vertex[1];
+
+    vertex[0] = x * cosZrotation + y * sinZrotation;
+    vertex[1] = x * sinZrotation - y * cosZrotation;
 }
 
 void cube_rotate(cube* c, float x_rotation, float y_rotation, float z_rotation) {
