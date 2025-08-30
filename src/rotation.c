@@ -8,9 +8,11 @@
 rotation_matrix rotation_matrix_new(float x_rotation, float y_rotation, float z_rotation) {
 
     rotation_matrix rot = {.data = {
+
         {cos(b) * cos(c), sin(a) * sin(b) * cos(c) - cos(a) * sin(c), cos(a) * sin(b) * cos(c) + sin(a) * sin(c)},
         {cos(b) * sin(c), sin(a) * sin(b) * sin(c) + cos(a) * cos(c), cos(a) * sin(b) * sin(c) - sin(a) * cos(c)},
         {-sin(b), sin(a) * cos(b), cos(a) * cos(b)}
+
     }};
     
     return rot;
